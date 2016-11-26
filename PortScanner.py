@@ -5,14 +5,13 @@
 
 import argparse,sys,socket,threading
 
-timeOut = 0
+timeOut = 5
 screenLock = threading.Semaphore(1)
 
 def checkOpenPort(ip,port):
     global timeOut
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.settimeout(timeOut)
-    print(timeOut)
     try:
         sock.connect((ip, port))
         screenLock.acquire()
@@ -64,7 +63,6 @@ def main():
         if max(args.port) <= mnp and min(args.port) >= 1: # check exist in range port number
             scanPort(args.host, args.port)
             timeOut = args.timeOut
-            print(timeOut)
     else:
         print('Error !!!')
         parser.print_help()
