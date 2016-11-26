@@ -43,7 +43,7 @@ def scanPort(hostname,ports):
     elif len(ports) == 1:
         range_port = ports
     else:
-        print('%sPlease Enter Correct Option'%(red))
+        print('%s Please Enter Correct Option'%(red))
         sys.exit(1)
 
     for p in range_port:
@@ -77,7 +77,7 @@ def main():
     parser.add_argument('-p','--port',dest='port',type=int,nargs='+')
     parser.add_argument('-t', '--timeout', dest='timeOut', type=int,default=5,required=False)
     parser.add_argument('-v','--version', action='version', version='%(prog)s 0.1')
-    args = parser.parse_args('-H w3school.com -p 80 90 -t 8'.split())
+    args = parser.parse_args()
 
     if checkValidInput(args.host,args.port,args.timeOut):
         timeOut = args.timeOut
