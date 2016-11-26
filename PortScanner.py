@@ -7,18 +7,19 @@ import argparse,sys,socket,threading
 
 timeOut = 5
 screenLock = threading.Semaphore(1)
+red = '\033[31m'
+green = '\033[32m'
 
 def checkOpenPort(ip,port):
-    global timeOut
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.settimeout(timeOut)
     try:
         sock.connect((ip, port))
         screenLock.acquire()
-        print('[+] %s : Port %d Open ' % (ip,port))
+        print('%s [+] %s : Port %d Open ' % (green,ip,port))
     except Exception as ex:
         screenLock.acquire()
-        print('[-] %s : Port %d Close ' % (ip, port))
+        print('%s [-] %s : Port %d Close ' % (red,ip, port))
         print(ex)
     finally:
         screenLock.release()
@@ -42,7 +43,7 @@ def scanPort(hostname,ports):
     elif len(ports) == 1:
         range_port = ports
     else:
-        print('Please Enter Correct Option')
+        print('%sPlease Enter Correct Option'%(red))
         sys.exit(1)
 
     for p in range_port:
@@ -61,10 +62,10 @@ def main():
     args = parser.parse_args()
     if args.host != None and args.port != None: # check not null option
         if max(args.port) <= mnp and min(args.port) >= 1: # check exist in range port number
-            scanPort(args.host, args.port)
             timeOut = args.timeOut
+            scanPort(args.host, args.port)
     else:
-        print('Error !!!')
+        print('%s Error !!!'%(red))
         parser.print_help()
         sys.exit(1)
 if __name__ == '__main__':
