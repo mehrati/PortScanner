@@ -52,7 +52,7 @@ def main():
     example = 'to example scan range ports 20 util 100 google => python %(prog)s -H google.com -p 20 100'
     parser = argparse.ArgumentParser(description=example)
     parser.add_argument('-H','--host',dest='host',type=str)
-    parser.add_argument('-p','--port',dest='port',type=int,nargs='+',choices=range(1, 6550))
+    parser.add_argument('-p','--port',dest='port',type=int,nargs='+',choices=range(1, 65535))
     parser.add_argument('-t', '--timeout', dest='timeOut', type=int,default=5,required=False)
     parser.add_argument('-v','--version', action='version', version='%(prog)s 0.1')
     args = parser.parse_args()
