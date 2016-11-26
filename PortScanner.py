@@ -7,8 +7,6 @@ import argparse,sys,socket,threading
 
 timeOut = 5
 screenLock = threading.Semaphore(1)
-red = '\033[31m'
-green = '\033[32m'
 
 def checkOpenPort(ip,port):
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -16,10 +14,10 @@ def checkOpenPort(ip,port):
     try:
         sock.connect((ip, port))
         screenLock.acquire()
-        print('%s [+] %s : Port %d Open ' % (green,ip,port))
+        print('\033[1;32m [+] %s : Port %d Open \033[1;m' % (ip,port))
     except Exception as ex:
         screenLock.acquire()
-        print('%s [-] %s : Port %d Close ' % (red,ip, port))
+        print('\033[31m [-] %s : Port %d Close \033[1;m' % (ip, port))
         print(ex)
     finally:
         screenLock.release()
@@ -43,7 +41,7 @@ def scanPort(hostname,ports):
     elif len(ports) == 1:
         range_port = ports
     else:
-        print('%s Please Enter Correct Option'%(red))
+        print('Please Enter Correct Option')
         sys.exit(1)
 
     for p in range_port:
@@ -57,13 +55,13 @@ def checkValidInput(host,port,time_out):
             if time_out >=1 and time_out <= 30:
                 return True
             else:
-                print('%s time value not correct'%(red))
+                print('time value not correct')
                 return False
         else:
-            print('%s port number value not correct'%(red))
+            print('port number value not correct')
             return False
     else:
-        print('%s host and port should be set'%(red))
+        print('host and port should be set')
         return False
 
 
